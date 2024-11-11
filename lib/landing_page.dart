@@ -9,7 +9,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  // Controller for the search bar
+
   TextEditingController searchController = TextEditingController();
   List<bool> isFavoriteList = [false, false, false, false,];
   // Original list of locations
@@ -21,13 +21,13 @@ class _LandingPageState extends State<LandingPage> {
     {'name': 'Korea', 'image': 'https://images.pexels.com/photos/29013548/pexels-photo-29013548/free-photo-of-traditional-guard-at-gyeongbokgung-palace-seoul.jpeg'},
   ];
 
-  // Filtered list of locations
+
   List<Map<String, String>> filteredLocations = [];
 
   @override
   void initState() {
     super.initState();
-    // Initially, display all locations
+
     filteredLocations = locations;
   }
   @override
@@ -48,12 +48,7 @@ class _LandingPageState extends State<LandingPage> {
       tempList = locations;
     }
 
-    print("Query: $query");  // Check what is being searched
-    print("Filtered Locations: ${tempList.length}");  // Check filtered locations
-
-    setState(() {
-      filteredLocations = tempList;
-    });
+    filteredLocations.value = tempList;  // No need for setState
   }
 
 
@@ -77,7 +72,7 @@ class _LandingPageState extends State<LandingPage> {
               ),
               SizedBox(height: 20),
 
-              // Row containing Search and Filter
+
               Row(
                 children: [
                   Expanded(
@@ -144,8 +139,6 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               SizedBox(height: 30),
-
-              // Recommended section title
               Text(
                 "Recommended",
                 style: TextStyle(
@@ -172,7 +165,6 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  // Method to build location card
   Widget buildLocationCard(String locationName, String imageUrl) {
     return Container(
       width: 120,
@@ -215,7 +207,7 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  // Method to build the recommended section
+
   Widget buildRecommendedSection() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -293,9 +285,8 @@ class _LandingPageState extends State<LandingPage> {
                 right: 8,
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      isFavoriteList[index] = !isFavoriteList[index]; // Toggle favorite state
-                    });
+                    isFavoriteList[index] = !isFavoriteList[index]; // Toggle favorite state
+
                   },
                   child: CircleAvatar(
                     radius: 16,
@@ -386,11 +377,6 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-
-
-
-
-
   Widget buildMostViewedCard({
     required int index,
     required String imagePath,
@@ -405,8 +391,8 @@ class _LandingPageState extends State<LandingPage> {
         double screenHeight = MediaQuery.of(context).size.height;
 
         return Container(
-          width: screenWidth * 0.9, // 90% of screen width
-          height: screenHeight * 0.3, // 30% of screen height
+          width: screenWidth * 0.9,
+          height: screenHeight * 0.3,
           decoration: BoxDecoration(
             color: Colors.white, // Placeholder color
             borderRadius: BorderRadius.circular(15),
@@ -472,9 +458,9 @@ class _LandingPageState extends State<LandingPage> {
                 right: 8,
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      isFavoriteList[index] = !isFavoriteList[index]; // Toggle favorite state
-                    });
+                    isFavoriteList[index] = !isFavoriteList[index]; // Toggle favorite state
+                    // Toggle favorite state
+                   
                   },
                   child: CircleAvatar(
                     radius: 16,
@@ -493,9 +479,12 @@ class _LandingPageState extends State<LandingPage> {
       },
     );
   }
-
-
-
-
 }
+
+extension on List<Map<String, String>> {
+  set value(List<Map<String, String>> value) {}
+}
+
+
+
 
